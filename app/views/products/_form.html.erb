@@ -14,39 +14,51 @@
     <div class="field">
       <%= f.label :name %><br>
       <%= f.text_field :name %>
-    </div>
-  </p>
-  <p>
+    </div><br>
+
     <div class="field">
       <%= f.label :description %><br>
       <%= f.text_area :description %>
-    </div>
-  </p>
-  <p>
+    </div><br>
+  
     <div class="field">
       <%= f.label :price %><br>
       <%= f.text_field :price %>
+    </div><br>
+
+    <!-- needs to be refactored to account for different units -->
+    <!-- needs to look a little nicer, too -->
+
+    <div class="field">
+      <%= f.label :weight %><br>
+      <%= f.text_field :weight %>
+    </div><br>
+
+    <div class="field">
+      <%= f.label :height %><br>
+      <%= f.text_field :height %><br>
     </div>
-  </p>
-  <p>
+
+    <div class="field">
+      <%= f.label :width %><br>
+      <%= f.text_field :width %><br>
+    </div><br>
+  
     <div class="field">
       <%= f.label :photo, "Photo URL" %><br>
       <%= f.text_field :photo %>
-    </div>
-  </p>
-  <p>
+    </div><br>
+  
     <div class="field">
       <%= f.label :stock %><br>
       <%= f.text_field :stock %>
-    </div>
-  </p>
-  <p>
+    </div> <br>
+  
     <div class="field">
       <%= f.label :categories %><br>
       <%= f.select(:categories, @categories, {selected: @product.categories.collect{ |i| i.id }}, {:multiple => true}) %>
-    </div>
-  </p>
-  <p>
+    </div><br>
+  
     <div class="field">
       <%= f.hidden_field :user_id, :value => current_user.id %>
     </div>
