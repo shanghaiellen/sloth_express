@@ -29,19 +29,22 @@
     <!-- needs to be refactored to account for different units -->
     <!-- needs to look a little nicer, too -->
 
+    <%= check_box_tag(:metric, value = '1', checked = false, options = {class: 'metric'})%><%= label_tag :metric %><br>
+    <!-- ADD DEPTH -->
+
     <div class="field">
       <%= f.label :weight %><br>
-      <%= f.text_field :weight %>
+      <%= f.text_field :weight %> <div class='weight_unit'>lbs</div>
     </div><br>
 
     <div class="field">
       <%= f.label :height %><br>
-      <%= f.text_field :height %><br>
+      <%= f.text_field :height %> <div class='length_unit'>inches</div><br>
     </div>
 
     <div class="field">
       <%= f.label :width %><br>
-      <%= f.text_field :width %><br>
+      <%= f.text_field :width %><div class='length_unit'>inches</div>
     </div><br>
   
     <div class="field">

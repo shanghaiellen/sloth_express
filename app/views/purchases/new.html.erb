@@ -30,25 +30,7 @@
       <%= f.text_field :name %>
     </div>
   </p>
-  <p>
-    <div class="field">
-      <%= f.label :cc_number, "Credit Card Number" %><br>
-      <%= f.text_field :cc_number %>
-    </div>
-  </p>
-  <p>
-    <div class="field">
-      <%= f.label 'Expiration Date' %><br>
-      <%= select_month nil, {add_month_numbers: true}, {name: 'purchase[expiration_month]'} %>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'purchase[expiration_year]'} %>
-    </div>
-  </p>
-  <p>
-    <div class="field">
-      <%= f.label :cvv, "Security Code (CVV)" %><br>
-      <%= f.text_field :cvv %>
-    </div>
-  </p>
+  
   <p>
     <div class="field">
       <%= f.label :zipcode, "Billing Zip Code" %><br>
