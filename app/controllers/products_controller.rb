@@ -24,6 +24,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    unless params[:metric].nil?
+      @product.imperialize(product_params)
+    end
 
     respond_to do |format|
       if @product.save
@@ -108,6 +111,8 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :reviews, :price, :photo, :stock, :user_id, :weight, :height, :width, :item_status => "active", :categories => {})
+    params.require(:product).permit(:name, :description, :reviews, :price, 
+      :photo, :stock, :user_id, :weight, :height, :width, :depth, 
+      :item_status => "active", :categories => {})
   end
 end

@@ -29,23 +29,34 @@
     <!-- needs to be refactored to account for different units -->
     <!-- needs to look a little nicer, too -->
 
-    <%= check_box_tag(:metric, value = '1', checked = false, options = {class: 'metric'})%><%= label_tag :metric %><br>
-    <!-- ADD DEPTH -->
+    <div class='check_box'><%= check_box_tag(:metric, value = '1', checked = false, options = {class: 'metric'})%><%= label_tag :metric %></div><br>
+
+    <!-- NEEDS MOAR FORMATTING -->
 
     <div class="field">
       <%= f.label :weight %><br>
       <%= f.text_field :weight %> <div class='weight_unit'>lbs</div>
     </div><br>
 
-    <div class="field">
-      <%= f.label :height %><br>
-      <%= f.text_field :height %> <div class='length_unit'>inches</div><br>
-    </div>
+    <div class='dimensions'>
+      <div class="field">
+        <%= f.label :height %><br>
+        <%= f.text_field :height %> <div class='length_unit'>inches</div> x
+      </div>
 
-    <div class="field">
-      <%= f.label :width %><br>
-      <%= f.text_field :width %><div class='length_unit'>inches</div>
+      <div class="field">
+        <%= f.label :width %><br>
+        <%= f.text_field :width %><div class='length_unit'>inches</div> x
+      </div>
+
+      <div class="field">
+        <!-- left as depth in the database because fixing it seemed like -->
+        <!-- a large change for a minor mistake -->
+        <%= f.label 'Length' %><br>
+        <%= f.text_field :depth %><div class='length_unit'>inches</div><br>
+      </div>
     </div><br>
+    <br>
   
     <div class="field">
       <%= f.label :photo, "Photo URL" %><br>
@@ -57,7 +68,7 @@
       <%= f.text_field :stock %>
     </div> <br>
   
-    <div class="field">
+    <div class="field" id='categories'>
       <%= f.label :categories %><br>
       <%= f.select(:categories, @categories, {selected: @product.categories.collect{ |i| i.id }}, {:multiple => true}) %>
     </div><br>

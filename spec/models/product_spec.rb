@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Product do
 
   describe 'validates' do
-    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1, weight: 4.5, height: 1, width: 1)}
-    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2, weight: 5.4, height: 2, width: 2)}
+    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1, weight: 4.5, height: 1, width: 1, depth: 1)}
+    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2, weight: 5.4, height: 2, width: 2, depth: 2)}
 
     it "must have a name" do
       product1.name = nil
@@ -51,6 +51,8 @@ describe Product do
       expect(product1).to be_invalid
     end
 
+# New tests with shipping refactoring!
+
     context 'with shipping refactoring' do
 
       it 'presence of weight' do 
@@ -80,6 +82,16 @@ describe Product do
 
       it 'width is greater than zero' do 
         product1.width = 0
+        expect(product1).to be_invalid
+      end
+
+      it 'presence of depth' do 
+        product1.depth = nil 
+        expect(product1).to be_invalid
+      end
+
+      it 'depth is greater than zero' do 
+        product1.depth = 0
         expect(product1).to be_invalid
       end
     end

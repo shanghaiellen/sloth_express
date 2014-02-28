@@ -18,9 +18,11 @@
 $(document).ready(function (){
   $('.metric').click(function(){
       if (this.checked){
-        $('.weight_unit').html('grams');
+        $('.weight_unit').html(' grams');
+        $('.length_unit').html(' cm');
       } else {
-        $('.weight_unit').html('lbs');
+        $('.weight_unit').html(' lbs');
+        $('.length_unit').html(' inches');
       }
     }
   );
