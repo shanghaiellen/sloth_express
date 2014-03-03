@@ -29,4 +29,6 @@ Order status: <%= @purchase.order.status %> <br><br>
 
 <br>
 
-Total: <%= number_to_currency(@purchase.order.order_items.total) %>
+Shipping: <%= number_to_currency(@purchase.shipping.to_f) %><br>
+
+Total: <%= number_to_currency(@purchase.order.order_items.total + @purchase.shipping.to_f) %>

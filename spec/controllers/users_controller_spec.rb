@@ -11,6 +11,7 @@ describe UsersController do
 
   describe "GET 'show'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'show'
       response.should be_success
     end
@@ -25,6 +26,7 @@ describe UsersController do
 
   describe "GET 'edit'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'edit'
       response.should be_success
     end
@@ -32,6 +34,7 @@ describe UsersController do
 
   describe "GET 'create'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'create'
       response.should be_success
     end
@@ -39,6 +42,7 @@ describe UsersController do
 
   describe "GET 'update'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'update'
       response.should be_success
     end
@@ -46,6 +50,7 @@ describe UsersController do
 
   describe "GET 'destroy'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'destroy'
       response.should be_success
     end

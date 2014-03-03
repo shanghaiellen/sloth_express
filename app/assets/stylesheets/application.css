@@ -1,3 +1,45 @@
+/* new */
+
+.dimensions{
+  display: inline-block;
+  margin: auto;
+}
+
+.dimensions div{
+  display: inline-block;
+}
+
+.field div{
+  display: inline-block;
+}
+
+#product_categories{
+  min-width: 20%;
+}
+
+.shipping-box{
+  border: 1px solid black;
+  min-height: 200px;
+  max-width: 80%;
+}
+
+.subtotal-box h2{
+  margin: auto;
+  display: inline-block;
+}
+
+.shipping-cost-box h2{
+  margin-top: auto;
+  display: inline-block;
+}
+
+.total-box h2{
+  display: inline-block;
+  margin: auto;
+}
+
+/* legacy */
+
 body {
   font-family: Helvetica;
 }

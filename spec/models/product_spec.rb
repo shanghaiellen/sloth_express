@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Product do
 
-  describe 'validations' do
-    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1)}
-    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2)}
+  describe 'validates' do
+    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1, weight: 4.5, height: 1, width: 1, depth: 1)}
+    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2, weight: 5.4, height: 2, width: 2, depth: 2)}
 
     it "must have a name" do
       product1.name = nil
@@ -49,6 +49,51 @@ describe Product do
     it "must belong to a user" do
       product1.user_id = nil
       expect(product1).to be_invalid
+    end
+
+# New tests with shipping refactoring!
+
+    context 'with shipping refactoring' do
+
+      it 'presence of weight' do 
+        product1.weight = nil
+        expect(product1).to be_invalid
+      end
+
+      it 'weight is greater than zero' do
+        product1.weight = 0
+        expect(product1).to be_invalid
+      end
+
+      it 'presence of height' do
+        product1.height = nil 
+        expect(product1).to be_invalid
+      end
+
+      it 'height is greater than zero' do 
+        product1.height = 0
+        expect(product1).to be_invalid
+      end
+
+      it 'presence of width' do 
+        product1.width = nil 
+        expect(product1).to be_invalid
+      end
+
+      it 'width is greater than zero' do 
+        product1.width = 0
+        expect(product1).to be_invalid
+      end
+
+      it 'presence of depth' do 
+        product1.depth = nil 
+        expect(product1).to be_invalid
+      end
+
+      it 'depth is greater than zero' do 
+        product1.depth = 0
+        expect(product1).to be_invalid
+      end
     end
   end
 end

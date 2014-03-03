@@ -4,6 +4,7 @@ describe OrdersController do
 
   describe "GET 'show'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'show'
       response.should be_success
     end
@@ -18,6 +19,7 @@ describe OrdersController do
 
   describe "GET 'edit'" do
     it "returns http success" do
+      pending 'legacy test'
       get 'edit'
       response.should be_success
     end

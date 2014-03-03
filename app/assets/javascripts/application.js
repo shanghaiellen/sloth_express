@@ -15,6 +15,38 @@
 //require turbolinks
 //= require_tree .
 
+$(document).ready(function (){
+  // this happens in new products. It changes the value of the
+  // units between metric and imperial based on radio button clicks
+  $('.metric').click(function(){
+      if (this.checked){
+        $('.weight_unit').html(' grams');
+        $('.length_unit').html(' cm');
+      } else {
+        $('.weight_unit').html(' lbs');
+        $('.length_unit').html(' inches');
+      }
+    }
+  );
+
+  // This changes the displayed value of the shipping cost on the 
+  // billing page depending on the shipping method the user selects
+  $('.shipping-radio').click(function(){
+    var shipping_cost = $(this).val();
+    $('#shipping-digit').html(shipping_cost);
+
+    // This changes the displayed total each time the displayed shipping
+    // cost changes
+    var subtotal_string = $('#subtotal-digit').html();
+    console.log(subtotal_string);
+    var subtotal = parseFloat(subtotal_string);
+    var real_shipping = parseFloat(shipping_cost);
+    $('#total-digit').html(real_shipping + subtotal);
+  });
+
+});
+
+// legacy code
     function toggle_visibility(id) {
        var e = document.getElementById(id);
        if(e.style.display == 'block')

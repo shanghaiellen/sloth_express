@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131220235211) do
+ActiveRecord::Schema.define(version: 20140303191057) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -51,10 +51,14 @@ ActiveRecord::Schema.define(version: 20131220235211) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "item_status", default: "active"
+    t.float    "weight"
+    t.float    "height"
+    t.float    "width"
+    t.float    "depth"
   end
 
   create_table "purchases", force: true do |t|
-    t.integer  "order_id",         limit: 255
+    t.integer  "order_id"
     t.string   "email"
     t.string   "address"
     t.string   "name"
@@ -63,8 +67,9 @@ ActiveRecord::Schema.define(version: 20131220235211) do
     t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "expiration_year"
     t.string   "expiration_month"
+    t.string   "expiration_year"
+    t.string   "shipping"
   end
 
   create_table "reviews", force: true do |t|
