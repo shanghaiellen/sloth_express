@@ -44,6 +44,43 @@ $(document).ready(function (){
     $('#total-digit').html(real_shipping + subtotal);
   });
 
+  // this variable is used to set the style for an active tab
+  var active_style = {
+    "background": "#3b3b3b",
+    "color": "white"
+  };
+
+  // this variable will be used to set the style for the inactive tabs
+  var inactive_style = {
+    "background": "#a5c7cf",
+    "color": "black"
+  };
+
+  var SwitchTab = function(active_tab, active_content){
+    $('#all-shipping').css(inactive_style);
+    $('#cheapest-shipping').css(inactive_style);
+    $('#fastest-shipping').css(inactive_style);
+    $(active_tab).css(active_style);
+    $('#all-shipping-box').hide();
+    $('#fastest-shipping-box').hide();
+    $('#cheapest-shipping-box').hide();
+    $(active_content).show();
+  };
+
+  // These actually change the color of the tab on click.
+  // this isn't very DRY, but if I have time, I'll refactor in the future
+  $('#fastest-shipping').click(function(){
+    SwitchTab('#fastest-shipping', '#fastest-shipping-box');
+  });
+
+  $('#cheapest-shipping').click(function(){
+    SwitchTab('#cheapest-shipping', '#cheapest-shipping-box');
+  });
+
+  $('#all-shipping').click(function(){
+    SwitchTab('#all-shipping', '#all-shipping-box');
+  });
+
 });
 
 // legacy code
