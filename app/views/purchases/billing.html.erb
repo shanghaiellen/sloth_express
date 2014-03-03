@@ -1,0 +1,40 @@
+<h1>Choose Shipping</h1>
+  <% if @purchase.errors.any? %>
+    <div id="error_messages">
+      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this order from being placed:</h2>
+      <ul>
+        <% @purchase.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_for @purchase do |f| %>
+
+  <div class="field">
+    <%= f.label "Credit Card Number" %>
+    <%= f.text_field :cc_number %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label "CVV" %>
+    <%= f.text_field :cvv %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Expiration Date' %><br>
+    <%= select_month nil, {add_month_numbers: true}, {name: 'purchase[expiration_month]'} %>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'purchase[expiration_year]'} %>
+  </div>
+
+  <%= hidden_field_tag :order_id, value: params[:order_id] %>
+  <%= f.hidden_field :zipcode, value: params[:zipcode] %>
+  <%= f.hidden_field :name, value: params[:name] %>
+  <%= f.hidden_field :address, value: params[:address] %>
+  <%= f.hidden_field :email, value: params[:email] %>
+
+  <div class="actions">
+    <%= submit_tag("Onward, to glory!") %>
+  </div>
+<% end %>

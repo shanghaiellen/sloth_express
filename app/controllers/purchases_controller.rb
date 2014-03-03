@@ -9,8 +9,15 @@ class PurchasesController < ApplicationController
     @total = 0
   end
 
+  def billing
+    @purchase = Purchase.new
+  end
+
   def create
     @purchase = Purchase.new(purchase_params)
+    # this is a little ridiculous, and I'm not sure why it's necessary,
+    # but it's helping deal with the legacy code
+    @purchase.order = current_order
     @order_items = OrderItem.where(order_id: session[:order_id])
 
     if @purchase.save

@@ -13,6 +13,8 @@
 
   <div class="product_details">
     <h1><%= @product.name %></h1>
+    <!-- needs to be refactored to allow for different units -->
+    <p><%= @product.name %> is <%=@product.weight %> lb. heavy. <br>It is <%= @product.height %> inches x <%= @product.width %> inches x <%= @product.depth %> inches in size.</p>
     
     <strong>Average Rating: </strong>
     <% if @product.reviews.empty? %>

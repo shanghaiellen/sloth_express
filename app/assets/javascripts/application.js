@@ -15,6 +15,20 @@
 //require turbolinks
 //= require_tree .
 
+$(document).ready(function (){
+  $('.metric').click(function(){
+      if (this.checked){
+        $('.weight_unit').html(' grams');
+        $('.length_unit').html(' cm');
+      } else {
+        $('.weight_unit').html(' lbs');
+        $('.length_unit').html(' inches');
+      }
+    }
+  );
+});
+
+// legacy code
     function toggle_visibility(id) {
        var e = document.getElementById(id);
        if(e.style.display == 'block')

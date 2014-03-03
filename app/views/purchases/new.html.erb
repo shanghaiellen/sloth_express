@@ -1,6 +1,6 @@
 <h1>Checkout</h1>
 
-<%= form_for(@purchase) do |f| %>
+<%= form_tag('/billing', method: 'get') do %>
   <% if @purchase.errors.any? %>
     <div id="error_messages">
       <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this order from being placed:</h2>
@@ -14,55 +14,37 @@
 
   <p>
     <div class="field">
-      <%= f.label :email, "Email Address" %><br>
-      <%= f.text_field :email %>
+      <%= label_tag :email, "Email Address" %><br>
+      <%= text_field_tag :email %>
     </div>
   </p>
   <p>
     <div class="field">
-      <%= f.label :address, "Mailing Address" %><br>
-      <%= f.text_field :address %>
+      <%= label_tag :address, "Mailing Address" %><br>
+      <%= text_field_tag :address %>
     </div>
   </p>
   <p>
     <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= label_tag :name %><br>
+      <%= text_field_tag :name %>
     </div>
   </p>
+  
   <p>
     <div class="field">
-      <%= f.label :cc_number, "Credit Card Number" %><br>
-      <%= f.text_field :cc_number %>
+      <%= label_tag :zipcode, "Billing Zip Code" %><br>
+      <%= text_field_tag :zipcode %>
     </div>
-  </p>
+  </p>  
   <p>
     <div class="field">
-      <%= f.label 'Expiration Date' %><br>
-      <%= select_month nil, {add_month_numbers: true}, {name: 'purchase[expiration_month]'} %>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'purchase[expiration_year]'} %>
-    </div>
-  </p>
-  <p>
-    <div class="field">
-      <%= f.label :cvv, "Security Code (CVV)" %><br>
-      <%= f.text_field :cvv %>
-    </div>
-  </p>
-  <p>
-    <div class="field">
-      <%= f.label :zipcode, "Billing Zip Code" %><br>
-      <%= f.text_field :zipcode %>
-    </div>
-  </p>
-  <p>
-    <div class="field">
-      <%= f.hidden_field :order_id, :value => current_order.id %>
+      <%= hidden_field_tag :order_id, current_order.id %>
     </div>
   </p>
   <p>
   <div class="actions">
-    <%= f.submit("Onward, to glory!") %>
+    <%= submit_tag("Onward, to glory!") %>
   </div>
   </p>
 <% end %>
