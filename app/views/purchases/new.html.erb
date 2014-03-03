@@ -1,5 +1,7 @@
 <h1>Checkout</h1>
 
+<h2>Subtotal: <%= number_to_currency(@order.order_items.total) %></h2>
+
 <%= form_tag('/billing', method: 'get') do %>
   <% if @purchase.errors.any? %>
     <div id="error_messages">

@@ -1,16 +1,43 @@
 <h1>Choose Shipping</h1>
-  <% if @purchase.errors.any? %>
-    <div id="error_messages">
-      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this order from being placed:</h2>
-      <ul>
-        <% @purchase.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<% if @purchase.errors.any? %>
+  <div id="error_messages">
+    <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this order from being placed:</h2>
+    <ul>
+      <% @purchase.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_for @purchase do |f| %>
+
+<!-- This is some fake data that can be used until we have actual data -->
+<!-- Our actual data will need to pass the cost as a float with no more -->
+<!-- than 2 decimals by the time it gets here. -->
+<% shipping = [["UPS 1-day", 25.54, Date.today + 1.day], 
+               ["UPS ground", 5, Date.today + 5.day],
+               ["USPS", 15, Date.today + 3.day],
+               ["FedEx", 35, Date.today + 2.day]] %>
+
+  <div class='shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "#{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+  </div><br>
+
+  <div class='subtotal-box'>
+    <h2>Subtotal: $</h2><h2 id='subtotal-digit'><%= money_format(@order.order_items.total) %></h2>
+  </div>
+
+  <div class='shipping-cost-box'>
+    <h2>Subtotal: $</h2><h2 id='shipping-digit'></h2>
+  </div>  
+
+  <div class='total-box'>
+    <h2>Total: $</h2><h2 id='total-digit'>23432</h2>
+  </div><br>
 
   <div class="field">
     <%= f.label "Credit Card Number" %>

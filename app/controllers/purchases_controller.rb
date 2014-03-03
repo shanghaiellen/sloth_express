@@ -2,6 +2,7 @@ class PurchasesController < ApplicationController
 
   def new
     @purchase = Purchase.new
+    @order = Order.find(session[:order_id])
   end
 
   def show
@@ -10,6 +11,7 @@ class PurchasesController < ApplicationController
   end
 
   def billing
+    @order = Order.find(session[:order_id])
     @purchase = Purchase.new
   end
 
@@ -40,6 +42,6 @@ class PurchasesController < ApplicationController
 
   private
   def purchase_params
-    params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id)
+    params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id, :shipping)
   end
 end

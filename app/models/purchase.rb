@@ -9,5 +9,6 @@ class Purchase < ActiveRecord::Base
   validates :expiration_year, presence: true
   validates :cvv, presence: true, numericality: true, length: { is: 3 }
   validates :zipcode, presence: true, numericality: true, length: { is: 5 }
+  validates_presence_of :shipping
 
 end
