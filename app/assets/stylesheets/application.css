@@ -33,7 +33,7 @@
   border: 1px solid black;
 }
 
-#all-shipping{
+#cheapest-shipping{
   padding-right: 4%;
   background: #3b3b3b;
   color: white;
@@ -43,13 +43,22 @@
   padding-right: 4%;
 }
 /* shipping data display for purchase/billing */
+
+.shipping-table{
+  width: 100%;
+}
+
+.shipping-price{
+  text-align: right;
+}
+
 .shipping-box{
   border: 1px solid black;
   min-height: 200px;
   max-width: 80%;
 }
 
-#cheapest-shipping-box{
+#all-shipping-box{
   display: none;
 }
 
