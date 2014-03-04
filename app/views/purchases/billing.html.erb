@@ -1,3 +1,15 @@
+<ol><% @estimate.each do |estimate| %>
+  <li>
+    <ul>
+      <li><%= estimate["carrier"] %></li>
+      <li><%= estimate["service"] %></li>
+      <li><%= number_to_currency estimate["price"] %></li>
+      <li><%= estimate["delivery_date"].to_time.strftime("%e %b %Y %H:%m:%S%p") if estimate["delivery_date"] %></li>
+    </ul>
+  </li>
+<% end %>
+</ol>
+
 <h1>Choose Shipping</h1>
 <% if @purchase.errors.any? %>
   <div id="error_messages">
