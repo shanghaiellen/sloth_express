@@ -1,3 +1,82 @@
+/* new */
+
+/* displays on the product/new page */
+.dimensions{
+  display: inline-block;
+  margin: auto;
+}
+
+.dimensions div{
+  display: inline-block;
+}
+
+.field div{
+  display: inline-block;
+}
+
+#product_categories{
+  min-width: 20%;
+}
+
+/* tab box for purchase/billing */
+.tabs{
+  width: 80%;
+}
+
+.tabs div{
+  display: inline-block;
+  height: 2em;
+  background: #a5c7cf;
+  width: 30%;
+  padding-top: 10px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+#all-shipping{
+  padding-right: 4%;
+  background: #3b3b3b;
+  color: white;
+}
+
+#fastest-shipping{
+  padding-right: 4%;
+}
+/* shipping data display for purchase/billing */
+.shipping-box{
+  border: 1px solid black;
+  min-height: 200px;
+  max-width: 80%;
+}
+
+#cheapest-shipping-box{
+  display: none;
+}
+
+#fastest-shipping-box{
+  display: none;
+}
+
+/* formatting for the visual totals of costs on purchase/billing */
+.subtotal-box h2{
+  margin: auto;
+  display: inline-block;
+}
+
+.shipping-cost-box h2{
+  margin-top: auto;
+  display: inline-block;
+}
+
+.total-box h2{
+  display: inline-block;
+  margin: auto;
+}
+
+
+
+/* legacy */
+
 body {
   font-family: Helvetica;
 }

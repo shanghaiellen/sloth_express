@@ -1,0 +1,95 @@
+<h1>Choose Shipping</h1>
+<% if @purchase.errors.any? %>
+  <div id="error_messages">
+    <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this order from being placed:</h2>
+    <ul>
+      <% @purchase.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @purchase do |f| %>
+
+<!-- This is some fake data that can be used until we have actual data -->
+<!-- Our actual data will need to pass the cost as a float with no more -->
+<!-- than 2 decimals by the time it gets here. -->
+<% shipping = [["UPS 1-day", 25.54, Date.today + 1.day], 
+               ["UPS ground", 5, Date.today + 5.day],
+               ["USPS", 15, Date.today + 3.day],
+               ["FedEx", 35, Date.today + 2.day]] %>
+
+  <!-- this is for the tabs at the top of the shipping box -->
+  <div class='tabs'>
+    <div id='all-shipping'>All Shipping</div>
+    <div id='fastest-shipping'>Fastest</div>
+    <div id='cheapest-shipping'>Best Value</div>
+  </div>
+
+  <!-- This is the box of all shipping options -->
+  <div class='shipping-box' id='all-shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "#{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+  </div>
+
+  <div class='shipping-box' id='fastest-shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "FASTEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+  </div>
+
+  <div class='shipping-box' id='cheapest-shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "EASIEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+      <%= f.radio_button :shipping, 34567, class: "shipping-radio" %>
+      <%= label_tag "EASIEST shipping test. $34567" %>
+  </div><br>
+
+  <!-- the subtotal, shipping-cost, and total boxes all exist and are -->
+  <!-- cut into pieces to facilitate js that adjusts the display according -->
+  <!-- to which shipping option the user has selected, and to facilitiate -->
+  <!-- a little css -->
+  <div class='subtotal-box'>
+    <h2>Subtotal: $</h2><h2 id='subtotal-digit'><%= money_format(@order.order_items.total) %></h2>
+  </div>
+
+  <div class='shipping-cost-box'>
+    <h2>Subtotal: $</h2><h2 id='shipping-digit'></h2>
+  </div>  
+
+  <div class='total-box'>
+    <h2>Total: $</h2><h2 id='total-digit'>23432</h2>
+  </div><br>
+
+  <div class="field">
+    <%= f.label "Credit Card Number" %>
+    <%= f.text_field :cc_number %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label "CVV" %>
+    <%= f.text_field :cvv %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Expiration Date' %><br>
+    <%= select_month nil, {add_month_numbers: true}, {name: 'purchase[expiration_month]'} %>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'purchase[expiration_year]'} %>
+  </div>
+
+  <%= hidden_field_tag :order_id, value: params[:order_id] %>
+  <%= f.hidden_field :zipcode, value: params[:zipcode] %>
+  <%= f.hidden_field :name, value: params[:name] %>
+  <%= f.hidden_field :address, value: params[:address] %>
+  <%= f.hidden_field :email, value: params[:email] %>
+
+  <div class="actions">
+    <%= submit_tag("Onward, to glory!") %>
+  </div>
+<% end %>
