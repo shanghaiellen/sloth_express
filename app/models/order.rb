@@ -8,22 +8,38 @@ class Order < ActiveRecord::Base
 
   def cart_size
    order_items.sum(:quantity)
-
-    # Previous one line of code does everything the next six lines do, but better...
-    # order_item_array = OrderItem.all.select { |order_item| order_item.order_id == id }
-    # cart_size = 0
-    # order_item_array.each do |order_item|
-    #   cart_size += order_item.quantity
-    # end
-    # cart_size
   end
 
-  #We blame Stand for this.
-  # validate :order_item_quantity_cannot_be_greater_than_product_stock
-  
-  # def order_item_quantity_cannot_be_greater_than_product_stock
-  #   if order_item.quantity > product.stock
-  #     errors.add(:quantity, "can't be greater than number in stock")
-  #   end
-  # end
+
+  def get_estimate(zip)
+    estimate = {order:  { packages: [],
+                          origin: {zip: 98101},
+                          destination: {country: 'US',
+                                        zip: zip}
+                        }
+                }
+    self.order_items.each do |item|
+      estimate[:order][:packages] << {weight: item.product.weight, 
+                                      dimensions: item.product.dimension_string,
+                                      units: "imperial"}
+    end
+    # uri = URI.parse("http://example.com/search")
+
+    # # Shortcut
+    # response = Net::HTTP.post_form(uri, {"q" => estimate })
+
+    # # Full control
+    # http = Net::HTTP.new(uri.host, uri.port)
+
+    # request = Net::HTTP::Post.new(uri.request_uri)
+    # request.set_form_data({"q" => "My query", "per_page" => "50"})
+
+    # response = http.request(request)
+
+    HTTParty.post('http://localhost:3000/get_estimate.json', 
+                  body: estimate.to_json, 
+                  headers: {'Content-Type' => 'application/json'})
+
+  end
+
 end
