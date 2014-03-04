@@ -15,6 +15,10 @@
 <!-- This is some fake data that can be used until we have actual data -->
 <!-- Our actual data will need to pass the cost as a float with no more -->
 <!-- than 2 decimals by the time it gets here. -->
+
+
+
+<!-- Data is passed in cents and must be switched to dollars.cents -->
 <% shipping = [["UPS 1-day", 25.54, Date.today + 1.day], 
                ["UPS ground", 5, Date.today + 5.day],
                ["USPS", 15, Date.today + 3.day],
@@ -60,11 +64,11 @@
   </div>
 
   <div class='shipping-cost-box'>
-    <h2>Subtotal: $</h2><h2 id='shipping-digit'></h2>
+    <h2>Subtotal: $</h2><h2 id='shipping-digit'>0.00</h2>
   </div>  
 
   <div class='total-box'>
-    <h2>Total: $</h2><h2 id='total-digit'>23432</h2>
+    <h2>Total: $</h2><h2 id='total-digit'><%=money_format(@order.order_items.total) %></h2>
   </div><br>
 
   <div class="field">
