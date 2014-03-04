@@ -9,7 +9,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
-gem 'bcrypt'
+gem "bcrypt-ruby", "~> 3.1.5"
 gem 'httparty'
 
 group :development do 
