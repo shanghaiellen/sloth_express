@@ -11,6 +11,8 @@ SlothExpress::Application.routes.draw do
   get "sloth_king"    => "users#sloth_king"
   get "users/:id/order/:order_id" => "users#order", :as => "users_order"
 
+  get "/hello" => "purchases#get_sloth_ship"
+
   # New! (not legacy)
   get "billing"       => "purchases#billing", as: :billing
 
