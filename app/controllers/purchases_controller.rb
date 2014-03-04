@@ -14,6 +14,7 @@ class PurchasesController < ApplicationController
 
   def billing
     @order = Order.find(session[:order_id])
+    @estimate = @order.get_estimate(params[:zipcode])
     @purchase = Purchase.new
   end
 

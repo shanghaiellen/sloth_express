@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  validates :stock, presence: true
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: {:greater_than => 0}
   validates :user_id, presence: true
@@ -24,5 +25,10 @@ class Product < ActiveRecord::Base
     self.height = (params[:height].to_f / 2.54).round(2)
     self.depth = (params[:depth].to_f / 2.54).round(2)
     self.width = (params[:width].to_f / 2.54).round(2)
+  end
+
+  
+  def dimension_string
+    [self.height, self.width, self.depth].join(",")
   end
 end
