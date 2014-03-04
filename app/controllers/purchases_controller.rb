@@ -12,6 +12,7 @@ class PurchasesController < ApplicationController
 
   def billing
     @order = Order.find(session[:order_id])
+    # make api call here
     @purchase = Purchase.new
   end
 
