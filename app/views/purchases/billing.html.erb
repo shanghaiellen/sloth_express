@@ -20,13 +20,41 @@
                ["USPS", 15, Date.today + 3.day],
                ["FedEx", 35, Date.today + 2.day]] %>
 
-  <div class='shipping-box'>
+  <!-- this is for the tabs at the top of the shipping box -->
+  <div class='tabs'>
+    <div id='all-shipping'>All Shipping</div>
+    <div id='fastest-shipping'>Fastest</div>
+    <div id='cheapest-shipping'>Best Value</div>
+  </div>
+
+  <!-- This is the box of all shipping options -->
+  <div class='shipping-box' id='all-shipping-box'>
     <% shipping.each do |arr| %>
       <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
       <%= label_tag "#{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
     <% end %>
+  </div>
+
+  <div class='shipping-box' id='fastest-shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "FASTEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+  </div>
+
+  <div class='shipping-box' id='cheapest-shipping-box'>
+    <% shipping.each do |arr| %>
+      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
+      <%= label_tag "EASIEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
+    <% end %>
+      <%= f.radio_button :shipping, 34567, class: "shipping-radio" %>
+      <%= label_tag "EASIEST shipping test. $34567" %>
   </div><br>
 
+  <!-- the subtotal, shipping-cost, and total boxes all exist and are -->
+  <!-- cut into pieces to facilitate js that adjusts the display according -->
+  <!-- to which shipping option the user has selected, and to facilitiate -->
+  <!-- a little css -->
   <div class='subtotal-box'>
     <h2>Subtotal: $</h2><h2 id='subtotal-digit'><%= money_format(@order.order_items.total) %></h2>
   </div>
