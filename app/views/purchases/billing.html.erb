@@ -14,9 +14,9 @@
 
   <!-- this is for the tabs at the top of the shipping box -->
   <div class='tabs'>
-    <div id='all-shipping'>All Shipping</div>
-    <div id='fastest-shipping'>Fastest</div>
     <div id='cheapest-shipping'>Best Value</div>
+    <div id='fastest-shipping'>Fastest</div>
+    <div id='all-shipping'>All Shipping</div>
   </div>
 
   <!-- This is the box of all shipping options -->
@@ -39,21 +39,43 @@
       <% end %>
     </table>
   </div>
-<% shipping = [1, 2, 3] %>
+
   <div class='shipping-box' id='fastest-shipping-box'>
-    <% shipping.each do |arr| %>
-      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
-      <%= label_tag "FASTEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
-    <% end %>
+    <table class='shipping-table'>
+      <% @fastest.each do |estimate| %>
+        <tr>
+          <td><%= f.radio_button :shipping, estimate_to_money(estimate["price"]), class: "shipping-radio" %></td>
+          <% if estimate["delivery_date"].nil? %>
+            <% estimate["delivery_date"] = 'unavailable' %>
+          <% else %>
+            <% estimate["delivery_date"] = estimate["delivery_date"].to_time.strftime("%B %d, %Y") %>
+          <% end %>
+
+          <td><b><%= label_tag "#{estimate["service"]} Shipping" %></b></td>
+          <td>$<%=estimate_to_money(estimate["price"])%></td>
+          <td>Expected delivery date: <%= estimate["delivery_date"] %>.</td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 
   <div class='shipping-box' id='cheapest-shipping-box'>
-    <% shipping.each do |arr| %>
-      <%= f.radio_button :shipping, arr[1], class: "shipping-radio" %>
-      <%= label_tag "EASIEST #{arr[0]} shipping: expected delivery date of #{arr[2]}. $#{arr[1]}" %><br>
-    <% end %>
-      <%= f.radio_button :shipping, 34567, class: "shipping-radio" %>
-      <%= label_tag "EASIEST shipping test. $34567" %>
+    <table class='shipping-table'>
+      <% @cheapest.each do |estimate| %>
+        <tr>
+          <td><%= f.radio_button :shipping, estimate_to_money(estimate["price"]), class: "shipping-radio" %></td>
+          <% if estimate["delivery_date"].nil? %>
+            <% estimate["delivery_date"] = 'unavailable' %>
+          <% else %>
+            <% estimate["delivery_date"] = estimate["delivery_date"].to_time.strftime("%B %d, %Y") %>
+          <% end %>
+
+          <td><b><%= label_tag "#{estimate["service"]} Shipping" %></b></td>
+          <td>$<%=estimate_to_money(estimate["price"])%></td>
+          <td>Expected delivery date: <%= estimate["delivery_date"] %>.</td>
+        </tr>
+      <% end %>
+    </table>
   </div><br>
 
   <!-- the subtotal, shipping-cost, and total boxes all exist and are -->

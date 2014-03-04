@@ -33,7 +33,7 @@
   border: 1px solid black;
 }
 
-#all-shipping{
+#cheapest-shipping{
   padding-right: 4%;
   background: #3b3b3b;
   color: white;
@@ -58,7 +58,7 @@
   max-width: 80%;
 }
 
-#cheapest-shipping-box{
+#all-shipping-box{
   display: none;
 }
 
