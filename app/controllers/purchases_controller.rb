@@ -1,3 +1,5 @@
+require 'net/http'
+
 class PurchasesController < ApplicationController
 
   def new
@@ -12,6 +14,7 @@ class PurchasesController < ApplicationController
 
   def billing
     @order = Order.find(session[:order_id])
+    @estimate = @order.get_estimate(params[:zipcode])
     @purchase = Purchase.new
   end
 
@@ -38,6 +41,13 @@ class PurchasesController < ApplicationController
     else
       render :new, notice: 'Your order was not completed. Please try again!'
     end
+  end
+
+  def get_sloth_ship
+    uri = URI('http://localhost:3000/hello')
+    hash = { :name => "foo", :bar => "sue" }
+    res = Net::HTTP.post_form(uri, { :data => JSON.dump(hash) })
+    render text: res.body
   end
 
   private
