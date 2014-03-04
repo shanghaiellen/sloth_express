@@ -1,3 +1,4 @@
+require 'httparty'
 class Order < ActiveRecord::Base
   has_many   :order_items
   has_many   :products, through: :order_items
@@ -26,6 +27,7 @@ class Order < ActiveRecord::Base
     end
     response ||= HTTParty.post("http://localhost:3000/shipping_estimate.json", body: estimate_params)
     response.parsed_response
+    
   end
 
 end

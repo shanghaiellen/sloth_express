@@ -43,6 +43,15 @@
   padding-right: 4%;
 }
 /* shipping data display for purchase/billing */
+
+.shipping-table{
+  width: 100%;
+}
+
+.shipping-price{
+  text-align: right;
+}
+
 .shipping-box{
   border: 1px solid black;
   min-height: 200px;

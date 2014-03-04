@@ -16,4 +16,15 @@ module PurchasesHelper
     end
     "#{dollars}.#{cents}"
   end
+
+  def estimate_to_money(float)
+    float = float.to_s
+    if float.length > 2
+      float.insert(-3, '.')
+    elsif float.length == 2
+      float.insert(0, '0.')
+    else
+      float.insert(0, '0.0')
+    end
+  end
 end
