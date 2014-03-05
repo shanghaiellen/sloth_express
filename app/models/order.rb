@@ -28,21 +28,21 @@ class Order < ActiveRecord::Base
 
   def get_estimate(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/shipping_estimate.json", 
+    response ||= HTTParty.post("http://sloth-ship.herokuapp.com/shipping_estimate.json", 
       body: @estimate_params)
     response.parsed_response
   end
 
   def get_cheapest(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/get_cheapest.json", 
+    response ||= HTTParty.post("http://sloth-ship.herokuapp.com/get_cheapest.json", 
       body: @estimate_params)
     response.parsed_response[0..4]
   end
 
   def get_fastest(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/get_fastest.json", 
+    response ||= HTTParty.post("http://sloth-ship.herokuapp.com/get_fastest.json", 
       body: @estimate_params)
     response.parsed_response[0..4]
   end
