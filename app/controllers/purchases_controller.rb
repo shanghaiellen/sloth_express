@@ -45,7 +45,7 @@ class PurchasesController < ApplicationController
 
       redirect_to purchase_path(@purchase.id), notice: 'Thank you for your order!'
     else
-      render :new, notice: 'Your order was not completed. Please try again!'
+      redirect_to new_purchase_path, notice: 'Your order was not completed. Please try again!'
     end
   end
 
