@@ -11,6 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby'
 gem 'httparty'
+gem 'figaro'
 
 group :development do 
   gem 'better_errors'

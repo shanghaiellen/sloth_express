@@ -12,9 +12,6 @@ class Purchase < ActiveRecord::Base
   validates :zipcode, presence: true, numericality: true, length: { is: 5 }
   validates_presence_of :shipping
 
-def initialize(user_id)
-  @user_id = user_id
-end
 
 
   #def get_sloth_ship

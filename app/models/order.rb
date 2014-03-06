@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
     time = Time.now.to_i.to_s
     {
         "REQUEST_TIME" => time,
-        "REQUEST_SIGNATURE" => ServiceAuthentication.new("testkey", @params, @path, @method, time).sign
+        "REQUEST_SIGNATURE" => ServiceAuthentication.new(ENV["API_KEY"], @params, @path, @method, time).sign
     }
   end
 
