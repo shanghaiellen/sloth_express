@@ -13,12 +13,16 @@ class PurchasesController < ApplicationController
   end
 
   def billing
-    if valid_zip(params[:zipcode])
+    if GoingPostal.postcode?(params[:zipcode], 'US')
       @order = Order.find(session[:order_id])
       @estimate = @order.get_estimate(params[:zipcode])
-      @cheapest = @order.get_cheapest(params[:zipcode])
-      @fastest = @order.get_fastest(params[:zipcode])
-      @purchase = Purchase.new
+      if render_errors == false
+        @cheapest = @order.get_cheapest(params[:zipcode])
+        @fastest = @order.get_fastest(params[:zipcode])
+        @purchase = Purchase.new
+      else
+        redirect_to '/purchases/new', notice: render_errors
+      end
     else
       redirect_to '/purchases/new', notice: 'You must provide a valid zipcode'
     end
@@ -61,9 +65,22 @@ class PurchasesController < ApplicationController
     params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id, :shipping)
   end
 
-  def valid_zip(zip)
-    # I'm pretty sure that the parentheses are unnecessary, but they help
-    # with readability
-    !zip.nil? && (zip.to_i != 0) && (zip.length == 5)
+  # this is a convoluted method that should be refactored
+  # I just wanted to get it working first
+  def render_errors
+    if @estimate.class == Array
+      false
+    else
+      case @estimate['status']
+      when '408'
+        'Request timed out; try again'
+      when '422'
+        'Please resubmit with a valid zip code'
+      when '429'
+        'The server is overloaded; please try again later'
+      else
+        'An error occurred; Please try again'
+      end
+    end
   end
 end

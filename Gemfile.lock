@@ -62,6 +62,7 @@ GEM
     execjs (2.0.2)
     ffi (1.9.3)
     formatador (0.2.4)
+    going_postal (0.1.3)
     guard (2.5.1)
       formatador (>= 0.2.4)
       listen (~> 2.6)
@@ -190,6 +191,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 4.0.0)
   debugger
+  going_postal
   guard-rspec
   httparty
   jbuilder (~> 1.2)
