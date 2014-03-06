@@ -11,11 +11,15 @@ class PurchasesController < ApplicationController
   end
 
   def billing
-    @order = Order.find(session[:order_id])
-    @estimate = @order.get_estimate(params[:zipcode])
-    @cheapest = @order.get_cheapest(params[:zipcode])
-    @fastest = @order.get_fastest(params[:zipcode])
-    @purchase = Purchase.new
+    if valid_zip(params[:zipcode])
+      @order = Order.find(session[:order_id])
+      @estimate = @order.get_estimate(params[:zipcode])
+      @cheapest = @order.get_cheapest(params[:zipcode])
+      @fastest = @order.get_fastest(params[:zipcode])
+      @purchase = Purchase.new
+    else
+      redirect_to '/purchases/new', notice: 'You must provide a valid zipcode'
+    end
   end
 
   def create
@@ -39,12 +43,18 @@ class PurchasesController < ApplicationController
 
       redirect_to purchase_path(@purchase.id), notice: 'Thank you for your order!'
     else
-      render :new, notice: 'Your order was not completed. Please try again!'
+      redirect_to new_purchase_path, notice: 'Your order was not completed. Please try again!'
     end
   end
 
   private
   def purchase_params
     params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id, :shipping)
+  end
+
+  def valid_zip(zip)
+    # I'm pretty sure that the parentheses are unnecessary, but they help
+    # with readability
+    !zip.nil? && (zip.to_i != 0) && (zip.length == 5)
   end
 end

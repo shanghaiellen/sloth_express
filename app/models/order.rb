@@ -32,7 +32,6 @@ class Order < ActiveRecord::Base
     estimate_params(zip)
     @method = "POST"
     @path = '/shipping_estimate.json'
-
     response ||= HTTParty.post("http://localhost:3000/#{@path}", 
       body: @estimate_params,
       headers: headers)
@@ -43,7 +42,6 @@ class Order < ActiveRecord::Base
     estimate_params(zip)
     @method = "POST"
     @path = '/shipping_estimate.json'
-
     response ||= HTTParty.post("http://localhost:3000/#{@path}", 
       body: @estimate_params,
       headers: headers)

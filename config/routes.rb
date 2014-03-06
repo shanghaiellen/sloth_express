@@ -15,7 +15,7 @@ SlothExpress::Application.routes.draw do
 
   # New! (not legacy)
   get "billing"       => "purchases#billing", as: :billing
-
+  get 'purchases/new' => 'purchases#new', as: :new_purchase
 
   resources :products do
     collection do
