@@ -28,7 +28,10 @@ class Order < ActiveRecord::Base
 
   def get_estimate(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/shipping_estimate.json", 
+    @method = "POST"
+    @path = '/shipping_estimate.json'
+
+    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
       body: @estimate_params,
       headers: headers)
     response.parsed_response
@@ -52,7 +55,7 @@ class Order < ActiveRecord::Base
     time = Time.now.to_i.to_s
     {
         "REQUEST_TIME" => time,
-        "REQUEST_SIGNATURE" => ServiceAuthentication.new(ENV["API_KEY"], @params, @path, @method, time).sign
+        "REQUEST_SIGNATURE" => ServiceAuthentication.new(ENV["API_KEY"], @estimate_params, @method, time).sign
     }
   end
 

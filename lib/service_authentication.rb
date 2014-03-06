@@ -1,15 +1,13 @@
 require 'openssl'
 require 'base64'
 
-
 class ServiceAuthentication
-  def initialize(key, params, path, method, time, sig=nil)
+  def initialize(key, params, path, method, time)
     @key    = key
+    @method = method
+    @time   = time
     @params = params
     @path   = path
-    @method = method
-    @sig    = sig
-    @time   = time
   end
 
   def sign
@@ -22,9 +20,6 @@ class ServiceAuthentication
 
   def digest
     OpenSSL::Digest::Digest.new('sha1')
-  end
-
-  def authenticated?
   end
 
 end
