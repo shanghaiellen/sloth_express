@@ -20,9 +20,11 @@ class Order < ActiveRecord::Base
                                       }
                           }
     self.order_items.each do |item|
-      @estimate_params["order"]["packages"] << {"weight" => item.product.weight.to_s, 
-                                                "dimensions" => item.product.dimension_string,
-                                                "units" => "imperial"}
+      item.quantity.times do
+        @estimate_params["order"]["packages"] << {"weight" => item.product.weight.to_s, 
+                                                  "dimensions" => item.product.dimension_string,
+                                                  "units" => "imperial"}
+      end
     end
   end
 
