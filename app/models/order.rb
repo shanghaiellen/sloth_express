@@ -29,7 +29,8 @@ class Order < ActiveRecord::Base
   def get_estimate(zip)
     estimate_params(zip)
     response ||= HTTParty.post("http://localhost:3000/shipping_estimate.json", 
-      body: @estimate_params)
+      body: @estimate_params,
+      headers: headers)
     response.parsed_response
   end
 
@@ -46,4 +47,13 @@ class Order < ActiveRecord::Base
       body: @estimate_params)
     response.parsed_response[0..4]
   end
+
+  def headers
+    time = Time.now.to_i.to_s
+    {
+        "REQUEST_TIME" => time,
+        "REQUEST_SIGNATURE" => ServiceAuthentication.new("testkey", @params, @path, @method, time).sign
+    }
+  end
+
 end

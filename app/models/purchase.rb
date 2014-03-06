@@ -1,3 +1,4 @@
+require 'net/http'
 class Purchase < ActiveRecord::Base
   belongs_to :order
 
@@ -10,5 +11,17 @@ class Purchase < ActiveRecord::Base
   validates :cvv, presence: true, numericality: true, length: { is: 3 }
   validates :zipcode, presence: true, numericality: true, length: { is: 5 }
   validates_presence_of :shipping
+
+def initialize(user_id)
+  @user_id = user_id
+end
+
+
+  #def get_sloth_ship
+  #  uri = URI('http://localhost:3000/shipping')
+  #  hash = { :name => "foo", :bar => "sue" }
+  #  res = Net::HTTP.post_form(uri, { :data => JSON.dump(hash) })
+  #  render text: res.body
+  #end
 
 end
