@@ -15,7 +15,13 @@ class ServiceAuthentication
   end
 
   def data
-    @params.to_query+"&path=#{@path}&method=#{@method}&time=#{@time}"
+    @params["path"]= @path
+    @params["method"] = @method
+    @params["time"] = @time
+    p "OUTGOING", @params
+
+    JSON.dump(@params)
+    # @params.to_query+"&path=#{@path}&method=#{@method}&time=#{@time}"
   end
 
   def digest

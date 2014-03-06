@@ -12,17 +12,17 @@ class Order < ActiveRecord::Base
   end
 
   def estimate_params(zip)
-    @estimate_params ||= {order:  {packages: [],
-                                origin: { country: 'US',
-                                          zip: 98101},
-                                destination: {country: 'US',
-                                              zip: zip}
-                              }
-                      }
+    @estimate_params ||= {"order" =>  {"packages" => [],
+                                      "origin" => { "country" => 'US',
+                                                    "zip" => "98101"},
+                                                    "destination" => {"country" => 'US',
+                                                                      "zip"=> zip.to_s}
+                                      }
+                          }
     self.order_items.each do |item|
-      @estimate_params[:order][:packages] << {weight: item.product.weight, 
-                                      dimensions: item.product.dimension_string,
-                                      units: "imperial"}
+      @estimate_params["order"]["packages"] << {"weight" => item.product.weight.to_s, 
+                                                "dimensions" => item.product.dimension_string,
+                                                "units" => "imperial"}
     end
   end
 
@@ -39,23 +39,31 @@ class Order < ActiveRecord::Base
 
   def get_cheapest(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/get_cheapest.json", 
-      body: @estimate_params)
+    @method = "POST"
+    @path = '/shipping_estimate.json'
+
+    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
+      body: @estimate_params,
+      headers: headers)
     response.parsed_response[0..4]
   end
 
   def get_fastest(zip)
     estimate_params(zip)
-    response ||= HTTParty.post("http://localhost:3000/get_fastest.json", 
-      body: @estimate_params)
+    @method = "POST"
+    @path = "/get_fastest.json"
+    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
+      body: @estimate_params,
+      headers: headers)
     response.parsed_response[0..4]
   end
 
   def headers
     time = Time.now.to_i.to_s
+    # @key = ENV["API_KEY"]
     {
-        "REQUEST_TIME" => time,
-        "REQUEST_SIGNATURE" => ServiceAuthentication.new(ENV["API_KEY"], @estimate_params, @method, time).sign
+      "REQUEST_TIME" => time,
+      "REQUEST_SIGNATURE" => ServiceAuthentication.new('testkey', @estimate_params, @path, @method, time).sign
     }
   end
 
