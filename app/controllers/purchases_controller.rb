@@ -13,7 +13,7 @@ class PurchasesController < ApplicationController
   end
 
   def billing
-    if GoingPostal.postcode?(params[:zipcode], 'US')
+    if validate_form
       @order = Order.find(session[:order_id])
       @estimate = @order.get_estimate(params[:zipcode])
       if render_errors == false
@@ -24,7 +24,7 @@ class PurchasesController < ApplicationController
         redirect_to '/purchases/new', notice: render_errors
       end
     else
-      redirect_to '/purchases/new', notice: 'You must provide a valid zipcode'
+      redirect_to '/purchases/new', notice: @notice.join.html_safe
     end
   end
 
@@ -81,6 +81,29 @@ class PurchasesController < ApplicationController
       else
         'An error occurred; Please try again'
       end
+    end
+  end
+
+  # Not very dry; waiting on a red green refactor
+  # this is clunky and needs a refactor
+  def validate_form
+    @notice = []
+    unless GoingPostal.postcode?(params[:zipcode], 'US')
+      @notice << 'Zipcode must be valid <br>'
+    end
+    unless /\w+@\w+\.\w+/.match(params[:email]) 
+      @notice << 'Email must be valid <br>'
+    end
+    if params[:address].empty?
+      @notice << 'Address must be present <br>'
+    end
+    if params[:name].empty?
+      @notice << 'Name must be present'
+    end
+    if @notice.length > 0
+      return false
+    else
+      return true
     end
   end
 end
