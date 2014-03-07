@@ -194,8 +194,8 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 4.0.0)
   debugger
-  going_postal
   figaro
+  going_postal
   guard-rspec
   httparty
   jbuilder (~> 1.2)
