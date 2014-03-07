@@ -3,10 +3,10 @@ class Product < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: {:greater_than => 0}
   validates :user_id, presence: true
-  validates :weight, presence: true, numericality: {greater_than: 0}
-  validates :height, presence: true, numericality: {greater_than: 0}
-  validates :width, presence: true, numericality: {greater_than: 0}
-  validates :depth, presence: true, numericality: {greater_than: 0}
+  validates :weight, presence: true, numericality: {greater_than: 0, less_than: 151}
+  validates :height, presence: true, numericality: {greater_than: 0, less_than: 108}
+  validates :width, presence: true, numericality: {greater_than: 0, less_than: 108}
+  validates :depth, presence: true, numericality: {greater_than: 0, less_than: 108}
 
   has_many   :product_categories
   has_many   :categories, through: :product_categories
