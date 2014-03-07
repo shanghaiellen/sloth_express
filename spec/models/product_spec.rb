@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Product do
 
   describe 'validates' do
-    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1, weight: 4.5, height: 1, width: 1, depth: 1)}
-    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2, weight: 5.4, height: 2, width: 2, depth: 2)}
+    let(:product1){Product.new(name:"Panda", price:4.40, user_id:1, weight: 4.5, height: 1, width: 1, depth: 1, stock: 1)}
+    let(:product2){Product.new(name:"Sloth", price:44.40, user_id:2, weight: 5.4, height: 2, width: 2, depth: 2, stock: 1)}
 
     it "must have a name" do
       product1.name = nil
