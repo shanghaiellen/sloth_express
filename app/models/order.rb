@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
                                                                       "zip"=> zip.to_s}
                                       }
                           }
+
     self.order_items.each do |item|
       item.quantity.times do
         @estimate_params["order"]["packages"] << {"weight" => item.product.weight.to_s, 
