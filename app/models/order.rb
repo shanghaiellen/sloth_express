@@ -41,7 +41,7 @@ class Order < ActiveRecord::Base
   def get_cheapest(zip)
     estimate_params(zip)
     @method = "POST"
-    @path = '/shipping_estimate.json'
+    @path = '/get_cheapest.json'
     response ||= HTTParty.post("http://localhost:3000/#{@path}", 
       body: @estimate_params,
       headers: headers)
