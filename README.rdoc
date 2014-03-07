@@ -1,6 +1,8 @@
 Hi there, and welcome to Sloth Express!
 
-SlothExpress is currently live on Heroku at: sloth-express.herokuapp.com
+We have added a few features!
+
+SlothExpress is currently live on Heroku at: sloth-expresser.herokuapp.com
 
 All-powerful admin account:
   username: Sloth King
