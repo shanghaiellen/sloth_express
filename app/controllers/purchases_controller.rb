@@ -11,14 +11,18 @@ class PurchasesController < ApplicationController
   end
 
   def billing
-    if valid_zip(params[:zipcode])
+    if validate_form
       @order = Order.find(session[:order_id])
       @estimate = @order.get_estimate(params[:zipcode])
-      @cheapest = @order.get_cheapest(params[:zipcode])
-      @fastest = @order.get_fastest(params[:zipcode])
-      @purchase = Purchase.new
+      if render_errors == false
+        @cheapest = @order.get_cheapest(params[:zipcode])
+        @fastest = @order.get_fastest(params[:zipcode])
+        @purchase = Purchase.new
+      else
+        redirect_to '/purchases/new', notice: render_errors
+      end
     else
-      redirect_to '/purchases/new', notice: 'You must provide a valid zipcode'
+      redirect_to '/purchases/new', notice: @notice.join.html_safe
     end
   end
 
@@ -52,9 +56,45 @@ class PurchasesController < ApplicationController
     params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id, :shipping)
   end
 
-  def valid_zip(zip)
-    # I'm pretty sure that the parentheses are unnecessary, but they help
-    # with readability
-    !zip.nil? && (zip.to_i != 0) && (zip.length == 5)
+  # this is a convoluted method that should be refactored
+  # I just wanted to get it working first
+  def render_errors
+    if @estimate.class == Array
+      false
+    else
+      case @estimate['status']
+      when '408'
+        'Request timed out; try again'
+      when '422'
+        'Please resubmit with a valid zip code'
+      when '429'
+        'The server is overloaded; please try again later'
+      else
+        'An error occurred; Please try again'
+      end
+    end
+  end
+
+  # Not very dry; waiting on a red green refactor
+  # this is clunky and needs a refactor
+  def validate_form
+    @notice = []
+    unless GoingPostal.postcode?(params[:zipcode], 'US')
+      @notice << 'Zipcode must be valid <br>'
+    end
+    unless /\w+@\w+\.\w+/.match(params[:email]) 
+      @notice << 'Email must be valid <br>'
+    end
+    if params[:address].empty?
+      @notice << 'Address must be present <br>'
+    end
+    if params[:name].empty?
+      @notice << 'Name must be present'
+    end
+    if @notice.length > 0
+      return false
+    else
+      return true
+    end
   end
 end
