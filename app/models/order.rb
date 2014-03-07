@@ -32,7 +32,7 @@ class Order < ActiveRecord::Base
     estimate_params(zip)
     @method = "POST"
     @path = '/shipping_estimate.json'
-    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
+    response ||= HTTParty.post("http://slothship.herokuapp.com/#{@path}", 
       body: @estimate_params,
       headers: headers)
     response.parsed_response
@@ -42,7 +42,7 @@ class Order < ActiveRecord::Base
     estimate_params(zip)
     @method = "POST"
     @path = '/get_cheapest.json'
-    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
+    response ||= HTTParty.post("http://slothship.herokuapp.com/#{@path}", 
       body: @estimate_params,
       headers: headers)
     response.parsed_response[0..4]
@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
     estimate_params(zip)
     @method = "POST"
     @path = "/get_fastest.json"
-    response ||= HTTParty.post("http://localhost:3000/#{@path}", 
+    response ||= HTTParty.post("http://slothship.herokuapp.com/#{@path}", 
       body: @estimate_params,
       headers: headers)
     response.parsed_response[0..4]
