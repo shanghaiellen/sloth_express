@@ -1,3 +1,4 @@
+require 'net/http'
 class Purchase < ActiveRecord::Base
   belongs_to :order
 
