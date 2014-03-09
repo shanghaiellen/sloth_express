@@ -1,5 +1,4 @@
 class PurchasesController < ApplicationController
-
   def new
     @purchase = Purchase.new
     @order = Order.find(session[:order_id])
@@ -37,11 +36,11 @@ class PurchasesController < ApplicationController
       @order_items.each do |order_item|
         order_item.product.stock -= order_item.quantity
         if order_item.product.stock == 0
-          order_item.product.update(item_status: "retired")
+          order_item.product.update(item_status: 'retired')
         end
         order_item.product.save
       end
-      current_order.status = "paid"
+      current_order.status = 'paid'
       current_order.save
       session[:order_id] = nil
 
@@ -52,6 +51,7 @@ class PurchasesController < ApplicationController
   end
 
   private
+
   def purchase_params
     params.require(:purchase).permit(:email, :address, :name, :cc_number, :cvv, :zipcode, :expiration_month, :expiration_year, :order_id, :product_id, :shipping)
   end
@@ -82,7 +82,7 @@ class PurchasesController < ApplicationController
     unless GoingPostal.postcode?(params[:zipcode], 'US')
       @notice << 'Zipcode must be valid <br>'
     end
-    unless /\w+@\w+\.\w+/.match(params[:email]) 
+    unless /\w+@\w+\.\w+/.match(params[:email])
       @notice << 'Email must be valid <br>'
     end
     if params[:address].empty?
