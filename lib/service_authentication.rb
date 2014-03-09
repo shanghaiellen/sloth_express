@@ -15,14 +15,13 @@ class ServiceAuthentication
   end
 
   def data
-    @params["path"]= @path
-    @params["method"] = @method
-    @params["time"] = @time
+    @params['path'] = @path
+    @params['method'] = @method
+    @params['time'] = @time
     JSON.dump(@params)
   end
 
   def digest
     OpenSSL::Digest::Digest.new('sha1')
   end
-
 end
